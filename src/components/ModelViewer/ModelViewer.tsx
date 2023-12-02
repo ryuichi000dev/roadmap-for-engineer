@@ -36,12 +36,25 @@ const AnimeModel: React.FC<{glb:GLTF}> = ({ glb }) => {
     return <primitive object={glb.scene} ref={modelRef} />;
 };
 
-const ModelViewer = () => {
+const ModelViewer = ({ level }: { level: number }) => {
     const [Models,setModel]=useState({
         Human:'/models/Human.glb',
         Desk:'/models/DeskLv1.glb',
         PC:'/models/PC.glb',
         Floor:'/models/Floor.glb'})
+    
+    useEffect(() => {
+        // レベルに応じてモデルを更新
+        if (level >= 10) {
+            setModel({
+                ...Models,
+                Human: '/models/HumanLv2.glb',
+                Desk: '/models/DeskLv2.glb'
+                // 他のモデルも必要に応じて更新
+            });
+        }
+        // さらに高いレベルのモデル変更もここに追加
+    }, [level]);
         
     return (
         <div style={{ height: '400px', width: '100%' }}>

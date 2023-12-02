@@ -46,8 +46,8 @@ const MainContent: React.FC = () => {
 
     return (
         <main>
-            {/* <ModelViewer level={userLearningData.level} /> */}
-            <ModelViewer />
+            <ModelViewer level={userLearningData.level} />
+            {/* <ModelViewer /> */}
             <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
             <LearningStatus userLearningData={userLearningData} />
     </main>
