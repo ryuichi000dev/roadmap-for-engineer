@@ -1,4 +1,5 @@
 import React from 'react';
+import './LearningStatus.css'
 
 interface UserLearningData {
     level: number;
@@ -12,12 +13,17 @@ interface LearningStatusProps {
 }
 
 const LearningStatus: React.FC<LearningStatusProps> = ({ userLearningData }) => {
+
+    const progress = userLearningData.totalExperience / userLearningData.nextLevelExperience;
+
     return (
         <div>
             <h2>学習状況</h2>
             <p>現在のレベル: {userLearningData.level}</p>
             <p>次のレベルまで: {userLearningData.nextLevelExperience} 時間</p>
-            {/* 進捗バーは適切なコンポーネントやスタイルを使って実装 */}
+            <div className="progress-bar">
+                <div className="progress-bar-fill" style={{ width: `${progress * 100}%` }}></div>
+            </div>
             <div>
                 {Object.entries(userLearningData.languageHours).map(([language, hours]) => (
                     <p key={language}>{language}：{hours}時間</p>
