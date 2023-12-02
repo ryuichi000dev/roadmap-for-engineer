@@ -22,6 +22,7 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
     return (
         <form onSubmit={handleSubmit} className='learning-form'>
             <div>
+                <h2>記録を入力</h2>
                 <label>言語:</label>
                 <select
                     value={formData.language}
@@ -40,7 +41,9 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
                     onChange={(e) => setFormData({ ...formData, hours: parseInt(e.target.value) })}
                 />
             </div>
-            <button type="submit">登録</button>
+            <div className="button-container">
+                <button type="submit">登録</button>
+            </div>
         </form>
     );
 };

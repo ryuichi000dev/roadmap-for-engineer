@@ -57,7 +57,7 @@ const ModelViewer = ({ level }: { level: number }) => {
     }, [level]);
         
     return (
-        <div style={{ height: '400px', width: '100%' }}>
+        <div className='model-viewer-container'>
             <Canvas 
             shadows={'basic'}
             camera={{fov: 45, near: 0.1, far: 1000, position: [0, 3, 10]}} 

@@ -17,7 +17,7 @@ const LearningStatus: React.FC<LearningStatusProps> = ({ userLearningData }) => 
     const progress = userLearningData.totalExperience / userLearningData.nextLevelExperience;
 
     return (
-        <div>
+        <div className='learning-status'>
             <h2>学習状況</h2>
             <p>現在のレベル: {userLearningData.level}</p>
             <p>次のレベルまで: {userLearningData.nextLevelExperience - userLearningData.totalExperience} 時間</p>
