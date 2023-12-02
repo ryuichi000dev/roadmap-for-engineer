@@ -38,9 +38,9 @@ const AnimeModel: React.FC<{glb:GLTF}> = ({ glb }) => {
 
 const ModelViewer = ({ level }: { level: number }) => {
     const [Models,setModel]=useState({
-        Human:'/models/Human.glb',
+        Human:'/models/HumanLv1.glb',
         Desk:'/models/DeskLv1.glb',
-        PC:'/models/PC.glb',
+        PC:'/models/PCLv1.glb',
         Floor:'/models/Floor.glb'})
     
     useEffect(() => {
