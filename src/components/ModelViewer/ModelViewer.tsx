@@ -8,8 +8,14 @@ import changeTexture from './ModelChanger'
 import { TextureLoader } from 'three';
 import './ModelViewer.css'
 
-const ModelLoader = ({Models}:{Models:{Human: string; Desk: string; PC: string; Floor: string;}}) => {
-    const [Human,Desk,PC,Floor] = useLoader(GLTFLoader, [Models.Human,Models.Desk,Models.PC,Models.Floor]); // モデルへのパスを指定
+//Mock
+const modelHuman=['/models/HumanLv1.glb','/models/HumanLv2.glb'];
+const modelDesk=['/models/DeskLv1.glb','/models/DeskLv2.glb'];
+const modelPC=['/models/PCLv1.glb','/models/PCLv2.glb'];
+
+const ModelLoader = ({Models}:{Models:{Human: number; Desk: number; PC: number; Floor: string;}}) => {
+
+    const [Human,Desk,PC,Floor] = useLoader(GLTFLoader, [modelHuman[Models.Human-1],modelDesk[Models.Desk-1],modelPC[Models.PC-1],Models.Floor]); // モデルへのパスを指定
     return(
     <>
         <primitive object={Human.scene} />
@@ -39,38 +45,48 @@ const AnimeModel: React.FC<{glb:GLTF}> = ({ glb }) => {
 
 const ModelViewer = ({ level }: { level: number }) => {
     const [Models,setModel]=useState({
-        Human:'/models/HumanLv1.glb',
-        Desk:'/models/DeskLv1.glb',
-        PC:'/models/PCLv1.glb',
+        Human:1,
+        Desk:1,
+        PC:1,
         Floor:'/models/Floor.glb'})
     
     useEffect(() => {
         // レベルに応じてモデルを更新
-        if (level >= 10) {
+        if (Math.floor(level/10)%3 === 1) {
+            if((Models.Human) in modelHuman){
+            console.log('Hello');
             setModel({
                 ...Models,
-                Human: '/models/HumanLv2.glb',
-                Desk: '/models/DeskLv2.glb'
-                // 他のモデルも必要に応じて更新
-            });
+                Human: Models.Human+1
+            })};
+        }else if(Math.floor(level/10)%3 === 2){
+            if((Models.Desk) in modelDesk){
+            setModel({
+                ...Models,
+                Desk: Models.Desk+1
+            })};
+        }else if(Math.floor(level/10)!==0 && Math.floor(level/10)%3 === 0){
+            if((Models.PC) in modelPC){
+            setModel({
+                ...Models,
+                PC: Models.PC+1
+            })};
         }
         // さらに高いレベルのモデル変更もここに追加
-    }, [level]);
-        
+    }, [Math.floor(level/10)]);
+
     return (
         <div className='model-viewer-container'>
-            <Canvas 
+            <Canvas
             shadows={'basic'}
             camera={{fov: 45, near: 0.1, far: 1000, position: [0, 3, 10]}}
             className='canvas' 
-            style={{ backgroundImage:`url(/models/backgroundImage.png)` }}>
+            style={{ height:400,backgroundImage:`url(/models/backgroundImage.png)` }}>
                 <ambientLight intensity={2} />
                 <spotLight position={[0, 0, 10]}/>
                 <OrbitControls autoRotate autoRotateSpeed={-2} />
                 <ModelLoader Models={Models}/>
             </Canvas>
-            <button onClick={()=>changeTexture({Models},setModel,{Human:'/models/HumanLv2.glb'})}>Mock:Human</button>
-            <button onClick={()=>changeTexture({Models},setModel,{Desk:'/models/DeskLv2.glb'})}>Mock:Desk</button>
         </div>
     );
 };
