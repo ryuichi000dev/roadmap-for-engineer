@@ -37,9 +37,6 @@ const AnimeModel: React.FC<{glb:GLTF}> = ({ glb }) => {
 };
 
 const ModelViewer = () => {
-    const scene=new THREE.Scene();
-    const bgtexture = useLoader(TextureLoader,'/models/SteveLv1.png');
-    scene.background=bgtexture;
     const [Models,setModel]=useState({
         Human:'/models/Human.glb',
         Desk:'/models/DeskLv1.glb',
