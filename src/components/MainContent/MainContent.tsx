@@ -5,6 +5,8 @@ import LearningStatus from '../LearningStatus/LearningStatus';
 
 import { LearningForm, LearningFormData } from '../LearningForm/LearningForm';
 
+import './MainContent.css'
+
 interface UserLearningData {
     level: number;
     nextLevelExperience: number;
@@ -46,10 +48,15 @@ const MainContent: React.FC = () => {
 
     return (
         <main>
-            <ModelViewer level={userLearningData.level} />
-            {/* <ModelViewer /> */}
-            <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
-            <LearningStatus userLearningData={userLearningData} />
+            <div className="main-content">
+                <div className="model-viewer-container">
+                    <ModelViewer level={userLearningData.level} />
+                </div>
+                <div className="form-status-container">
+                    <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
+                    <LearningStatus userLearningData={userLearningData} />
+                </div>
+            </div>
     </main>
     );
 };

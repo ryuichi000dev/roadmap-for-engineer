@@ -6,6 +6,7 @@ import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useLoader } from '@react-three/fiber';
 import changeTexture from './ModelChanger'
 import { TextureLoader } from 'three';
+import './ModelViewer.css'
 
 const ModelLoader = ({Models}:{Models:{Human: string; Desk: string; PC: string; Floor: string;}}) => {
     const [Human,Desk,PC,Floor] = useLoader(GLTFLoader, [Models.Human,Models.Desk,Models.PC,Models.Floor]); // モデルへのパスを指定
@@ -60,7 +61,8 @@ const ModelViewer = ({ level }: { level: number }) => {
         <div className='model-viewer-container'>
             <Canvas 
             shadows={'basic'}
-            camera={{fov: 45, near: 0.1, far: 1000, position: [0, 3, 10]}} 
+            camera={{fov: 45, near: 0.1, far: 1000, position: [0, 3, 10]}}
+            className='canvas' 
             style={{ backgroundImage:`url(/models/backgroundImage.png)` }}>
                 <ambientLight intensity={2} />
                 <spotLight position={[0, 0, 10]}/>
