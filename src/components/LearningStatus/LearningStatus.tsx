@@ -20,7 +20,7 @@ const LearningStatus: React.FC<LearningStatusProps> = ({ userLearningData }) => 
         <div>
             <h2>学習状況</h2>
             <p>現在のレベル: {userLearningData.level}</p>
-            <p>次のレベルまで: {userLearningData.nextLevelExperience} 時間</p>
+            <p>次のレベルまで: {userLearningData.nextLevelExperience - userLearningData.totalExperience} 時間</p>
             <div className="progress-bar">
                 <div className="progress-bar-fill" style={{ width: `${progress * 100}%` }}></div>
             </div>
