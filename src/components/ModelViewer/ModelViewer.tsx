@@ -81,7 +81,7 @@ const ModelViewer = ({ level }: { level: number }) => {
             shadows={'basic'}
             camera={{fov: 45, near: 0.1, far: 1000, position: [0, 3, 10]}}
             className='canvas' 
-            style={{ height:400,backgroundImage:`url(/models/backgroundImage.png)` }}>
+            style={{ height:'60vw' ,backgroundImage:`url(/models/backgroundImage.png)` }}>
                 <ambientLight intensity={2} />
                 <spotLight position={[0, 0, 10]}/>
                 <OrbitControls autoRotate autoRotateSpeed={-2} />
