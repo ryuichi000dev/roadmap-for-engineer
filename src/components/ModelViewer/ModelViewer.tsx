@@ -4,24 +4,24 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useLoader } from '@react-three/fiber';
-import changeTexture from './ModelChanger'
-import { TextureLoader } from 'three';
 import './ModelViewer.css'
 
 //Mock
 const modelHuman=['/models/HumanLv1.glb','/models/HumanLv2.glb'];
 const modelDesk=['/models/DeskLv1.glb','/models/DeskLv2.glb'];
 const modelPC=['/models/PCLv1.glb','/models/PCLv2.glb'];
+const modelItem:{[key:string]:string}={Supporters:'/models/ItemSupCup.glb'};
 
-const ModelLoader = ({Models}:{Models:{Human: number; Desk: number; PC: number; Floor: string;}}) => {
-
-    const [Human,Desk,PC,Floor] = useLoader(GLTFLoader, [modelHuman[Models.Human-1],modelDesk[Models.Desk-1],modelPC[Models.PC-1],Models.Floor]); // モデルへのパスを指定
+const ModelLoader = ({Models}:{Models:{Human: number; Desk: number; PC: number; Floor: string; Item:string}}) => {
+    
+    const [Human,Desk,PC,Floor,Item] = useLoader(GLTFLoader, [modelHuman[Models.Human-1],modelDesk[Models.Desk-1],modelPC[Models.PC-1],Models.Floor,Models.Item]); // モデルへのパスを指定
     return(
     <>
         <primitive object={Human.scene} />
         <primitive object={Desk.scene} />
         <primitive object={PC.scene} />
         <primitive object={Floor.scene} />
+        <primitive object={Item.scene} />
         <AnimeModel glb={Human} />
     </>
     );
@@ -43,14 +43,26 @@ const AnimeModel: React.FC<{glb:GLTF}> = ({ glb }) => {
     return <primitive object={glb.scene} ref={modelRef} />;
 };
 
-const ModelViewer = ({ level }: { level: number }) => {
+const ModelViewer: React.FC<{ level: number; code: string }> = ({ level, code }) => {
+    console.log(code);
     const [Models,setModel]=useState({
         Human:1,
         Desk:1,
         PC:1,
-        Floor:'/models/Floor.glb'})
+        Floor:'/models/Floor.glb',
+        Item:'/models/ItemTrash.glb'})
     
     useEffect(() => {
+        if (code in modelItem){
+            setModel({
+                ...Models,
+                Item: modelItem[code],
+            })}else {
+                setModel({
+                    ...Models,
+                    Item: '/models/ItemTrash.glb',
+                })  
+            }
         // レベルに応じてモデルを更新
         if (Math.floor(level/10)%3 === 1) {
             if((Models.Human) in modelHuman){
@@ -73,7 +85,7 @@ const ModelViewer = ({ level }: { level: number }) => {
             })};
         }
         // さらに高いレベルのモデル変更もここに追加
-    }, [Math.floor(level/10)]);
+    }, [Math.floor(level/10),code]);
 
     return (
         <div className='model-viewer-container'>

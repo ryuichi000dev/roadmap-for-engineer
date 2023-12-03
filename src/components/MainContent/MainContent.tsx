@@ -53,11 +53,12 @@ const MainContent: React.FC = () => {
         setUserLearningData({ level, nextLevelExperience, totalExperience, languageHours });
     };
 
+    const somecode:string='ers';
     return (
         <main>
             <div className="main-content">
                 <div className="model-viewer-container">
-                    <ModelViewer level={userLearningData.level} />
+                    <ModelViewer level={userLearningData.level} code={somecode} />
                 </div>
                 <div className="form-status-container">
                     <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
