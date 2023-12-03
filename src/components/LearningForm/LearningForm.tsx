@@ -31,12 +31,16 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
                     <option value="JavaScript">JavaScript</option>
+                    <option value="React">React</option>
+                    <option value="TypeScript">TypeScript</option>
+                    <option value="Node.js">Node.js</option>
                 </select>
             </div>
             <div>
                 <label>勉強時間 (時間):</label>
                 <input
                     type="number"
+                    min={0}
                     value={formData.hours}
                     onChange={(e) => setFormData({ ...formData, hours: parseInt(e.target.value) })}
                 />

@@ -1,9 +1,10 @@
 import React from 'react';
+import './Header.css'
 
 const Header = () => {
     return (
         <header>
-            <h1>学習進捗アプリ</h1>
+            <h1>エンジニアクラフト</h1>
             {/* 他のヘッダーコンテンツ */}
         </header>
     );

@@ -19,7 +19,14 @@ const MainContent: React.FC = () => {
         level: 1,
         nextLevelExperience: 10,
         totalExperience: 0,
-        languageHours: { HTML: 0, CSS: 0, JavaScript: 0 }
+        languageHours: { 
+            "HTML": 0,
+            "CSS": 0,
+            "JavaScript": 0,
+            "React":0,
+            "TypeScript":0,
+            "Node.js":0
+        }
     });
 
     const handleLearningDataSubmit = (data: LearningFormData) => {
