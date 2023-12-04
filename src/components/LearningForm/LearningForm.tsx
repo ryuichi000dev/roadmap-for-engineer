@@ -6,8 +6,16 @@ export interface LearningFormData {
     hours: number;
 }
 
+export interface EventFormData {
+    keyword: string;
+}
+
 interface LearningFormProps {
     onLearningDataSubmit: (data: LearningFormData) => void;
+}
+
+interface EventFormProps {
+    onEventDataSubmit: (data: EventFormData) => void;
 }
 
 export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit }) => {
@@ -19,10 +27,12 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
         setFormData({ language: 'HTML', hours: 0 });
     };
 
+    
+
     return (
         <form onSubmit={handleSubmit} className='learning-form'>
             <div>
-                <h2>記録を入力</h2>
+                <h2>学習記録を入力</h2>
                 <label>言語:</label>
                 <select
                     value={formData.language}
@@ -34,6 +44,7 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
                     <option value="React">React</option>
                     <option value="TypeScript">TypeScript</option>
                     <option value="Node.js">Node.js</option>
+                    
                 </select>
             </div>
             <div>
@@ -43,6 +54,35 @@ export const LearningForm: React.FC<LearningFormProps> = ({ onLearningDataSubmit
                     min={0}
                     value={formData.hours}
                     onChange={(e) => setFormData({ ...formData, hours: parseInt(e.target.value) })}
+                />
+            </div>
+            <div className="button-container">
+                <button type="submit">登録</button>
+            </div>
+        </form>
+
+    );
+};
+
+
+export const EventForm: React.FC<EventFormProps> = ({ onEventDataSubmit }) => {
+    const [eventFormData, setEventFormData] = useState<EventFormData>({ keyword: ''});
+
+    const handleEventSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        onEventDataSubmit(eventFormData);
+        setEventFormData({ keyword: ''});
+    };
+
+
+    return (
+        <form onSubmit={handleEventSubmit} className='learning-form'>
+            <div>
+                <h2>イベント参加記録を入力</h2>
+                <label>イベント参加コード:</label>
+                <input
+                    value={eventFormData.keyword}
+                    onChange={(e) => setEventFormData({ ...eventFormData, keyword: e.target.value })}
                 />
             </div>
             <div className="button-container">

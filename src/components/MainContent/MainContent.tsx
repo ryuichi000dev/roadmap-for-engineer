@@ -3,7 +3,7 @@ import ModelViewer from '../ModelViewer/ModelViewer';
 // import LearningForm from '../LearningForm/LearningForm';
 import LearningStatus from '../LearningStatus/LearningStatus';
 
-import { LearningForm, LearningFormData } from '../LearningForm/LearningForm';
+import { LearningForm, LearningFormData, EventFormData, EventForm } from '../LearningForm/LearningForm';
 
 import './MainContent.css'
 
@@ -12,6 +12,10 @@ interface UserLearningData {
     nextLevelExperience: number;
     totalExperience: number;
     languageHours: { [language: string]: number };
+}
+
+interface UserEventData {
+    keyword: string;
 }
 
 const MainContent: React.FC = () => {
@@ -28,6 +32,11 @@ const MainContent: React.FC = () => {
             "Node.js":0
         }
     });
+
+    const [userEventData, setUserEventData] = useState<UserEventData>({
+        keyword: "",
+    });
+
 
     const handleLearningDataSubmit = (data: LearningFormData) => {
         // 現在の経験値とレベルを取得
@@ -53,16 +62,21 @@ const MainContent: React.FC = () => {
         setUserLearningData({ level, nextLevelExperience, totalExperience, languageHours });
     };
 
-    const somecode:string='ers';
+    const handleEventDataSubmit = (data: EventFormData) => {
+        let { keyword } = data;
+        setUserEventData({ keyword });
+    }
+
     return (
         <main>
             <div className="main-content">
                 <div className="model-viewer-container">
-                    <ModelViewer level={userLearningData.level} code={somecode} />
+                    <ModelViewer level={userLearningData.level} code={userEventData.keyword} />
                 </div>
                 <div className="form-status-container">
-                    <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
                     <LearningStatus userLearningData={userLearningData} />
+                    <LearningForm onLearningDataSubmit={handleLearningDataSubmit} />
+                    <EventForm onEventDataSubmit={handleEventDataSubmit} />
                 </div>
             </div>
     </main>
